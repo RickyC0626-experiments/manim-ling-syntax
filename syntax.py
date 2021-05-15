@@ -34,8 +34,8 @@ class EnglishSyntaxTree(Scene):
             label_1S.animate.shift(UP),
             ShrinkToCenter(brace_1S)
         )
-        node_1S = Dot(point=label_1S.get_center(), radius=0.35, color=BLACK)
-        node_1S.add(label_1S)
+        node_1S_dot = Dot(point=label_1S.get_center(), radius=DEFAULT_SMALL_DOT_RADIUS, color=BLACK).next_to(label_1S, DOWN, buff=SMALL_BUFF)
+        node_1S = VGroup(node_1S_dot, label_1S)
         tree = Group(node_1S)
         self.wait(0.25)
 
@@ -70,8 +70,8 @@ class EnglishSyntaxTree(Scene):
         node_2VP = Dot(point=label_2VP.get_center(), radius=0.35, color=BLACK)
         node_2NP.add(label_2NP)
         node_2VP.add(label_2VP)
-        line_1S_2NP = Line(node_1S.point_at_angle(210 * DEGREES), node_2NP.point_at_angle(90 * DEGREES))
-        line_1S_2VP = Line(node_1S.point_at_angle(330 * DEGREES), node_2VP.point_at_angle(90 * DEGREES))
+        line_1S_2NP = Line(node_1S_dot.get_center(), node_2NP.point_at_angle(90 * DEGREES))
+        line_1S_2VP = Line(node_1S_dot.get_center(), node_2VP.point_at_angle(90 * DEGREES))
         line_1S_2NP.add_updater(lambda m: m.set(coord=line_1S_2NP.get_coord(2)))
         line_1S_2VP.add_updater(lambda m: m.set(coord=line_1S_2VP.get_coord(2)))
         tree.add(node_2NP, node_2VP, line_1S_2NP, line_1S_2VP)
